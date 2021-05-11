@@ -34,12 +34,36 @@ Client : Wait for opponent...
 
 Server -> Client : Starting game...
 
-Logica mutari (din perspectiva player 1)
+Logica mutari
 
-Server -> Client : [UPDATE] 
+while(!gameOver)
+{Server -> Client1 : "MOVE_Make your move"
+Client1 -> Server : <<LetterDigit>>
+if (boat_hit)
+	{Server -> Client2 : "UPDATE_<<LetterDigit>>"
+	Server -> Client1 : "HIT_<<LetterDigit>>"
+	}
+	else
+	{
+	Server -> Client2 : "UPDATE_<<LetterDigit>>"
+	Server -> Client1 : "MISS_<<LetterDigit>>"
+	changeCurrentPlayer();
+	}
+gameOver = isGameOver();
+}
 
+Server -> ClientWinner : "STOP_Winner"
+Server -> ClientLoser  : "STOP_Loser"
 
+Client1 & Client2 -> Server : "YES / NO"
   
+if(bothYes)
+	Server -> Client1 & Client2 : "Starting new game"
+	goto LogicaMutari
+	else
+	Server -> Client1 & Client2 : "Ending game"
+
+CLIENT
 
 
 
@@ -47,3 +71,8 @@ Server -> Client : [UPDATE]
 
 
 FRONT END
+
+nasol
+
+
+
