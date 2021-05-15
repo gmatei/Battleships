@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class SimpleClient {
@@ -18,6 +20,9 @@ public class SimpleClient {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 BufferedReader commandLineInput = new BufferedReader(new InputStreamReader(System.in));
         ) {
+            // -----------------------------------------------------------------------------------------
+            // -------------------------------- CONNECTION TO SERVER -----------------------------------
+            // -----------------------------------------------------------------------------------------
             System.out.println("What's your name?");
             String name = commandLineInput.readLine();
             System.out.println("Singleplayer/Multiplayer? (true/false)");
@@ -28,14 +33,76 @@ public class SimpleClient {
             String opponentName = in.readLine();
             System.out.println("Your opponent is " + opponentName);
 
-            System.out.println("Position your ships onto the board!");
+            // -----------------------------------------------------------------------------------------
+            // ----------------------------------- SHIP PLACEMENT --------------------------------------
+            // -----------------------------------------------------------------------------------------
+            System.out.println("Position your ships onto the board! Format: <LetterDigit> <Orientation>");
             /// TODO - implement board placement mode
-            out.println(Arrays.deepToString(new int[10][10]));
+            Map<String, Integer> ships = new HashMap<>();
+            ships.put("Carrier", 5);
+            ships.put("Battleship", 4);
+            ships.put("Cruiser", 3);
+            ships.put("Submarine", 3);
+            ships.put("Destroyer", 2);
+            int[][] board = new int[10][10];
 
+            for (var ship : ships.entrySet()) {
+                System.out.println("Place your " + ship.getKey() + "! (size " + ship.getValue() + ")");
+
+                System.out.print("  "); // colt stanga sus tabla
+                for (int i = 0; i < board.length; i++) System.out.print((char)('A' + i) + " "); // literele de pe coloane
+                System.out.println();
+                for (int i = 0; i < board.length; i++) {
+                    System.out.print(i + " "); // cifrele de pe linii
+                    for (int j = 0; j < board[i].length; j++) {
+                        System.out.print(board[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+
+                while (true) {
+                    var placement = commandLineInput.readLine().split(" ", 2);
+                    if (placement[0].charAt(0) < 'A' || placement[0].charAt(0) > 'Z' ||
+                        placement[0].charAt(1) < '0' || placement[0].charAt(1) > '9' ||
+                        !(placement[1].equals("V") || placement[1].equals("H"))) {
+                        System.out.println("Placement format: <LetterDigit> <Orientation>");
+                        continue;
+                    }
+
+                    int line = placement[0].charAt(1) - '0';
+                    int col  = placement[0].charAt(0) - 'A';
+                    if (col + ship.getValue() > 9) {
+                        System.out.println("Invalid placement: out of bounds");
+                        continue;
+                    }
+
+                    boolean ok = true;
+                    for (int j = col; j < col + ship.getValue(); j++) {
+                        if (board[line][j] != 0) {
+                            ok = false;
+                            break;
+                        }
+                    }
+
+                    if (!ok) {
+                        System.out.println("Invalid placement: overlapping ships");
+                        continue;
+                    }
+
+                    for (int j = col; j < col + ship.getValue(); j++) {
+                        board[line][j] = 1;
+                    }
+                    break;
+                }
+            }
+            out.println(Arrays.deepToString(board));
+
+            // -----------------------------------------------------------------------------------------
+            // ------------------------------------- GAME START ----------------------------------------
+            // -----------------------------------------------------------------------------------------
             System.out.println("Waiting for opponent to finish placing their ships on the board...");
             System.out.println(in.readLine()); // Starting game...
 
-            int[][] board = new int[10][10];
             int[][] opponentBoard = new int[10][10];
             boolean running = true;
 
@@ -47,10 +114,27 @@ public class SimpleClient {
 
                 switch (command) {
                     case "MOVE":
-                        // move -> choose a new place to move into
+                        // move -> choose a new place to strike
                         System.out.println(argument);
-                        String move = commandLineInput.readLine();
-                        opponentBoard[move.charAt(1) - '0'][move.charAt(0) - 'A'] = 1;
+                        String move;
+                        while (true) {
+                            move = commandLineInput.readLine();
+                            if (move.charAt(0) < 'A' || move.charAt(0) > 'Z' ||
+                                move.charAt(1) < '0' || move.charAt(1) > '9') {
+                                System.out.println("Placement format: <LetterDigit>");
+                                continue;
+                            }
+
+                            int line = move.charAt(1) - '0';
+                            int col  = move.charAt(0) - 'A';
+                            if (opponentBoard[line][col] != 0) {
+                                System.out.println("Invalid placement: position already tried");
+                                continue;
+                            }
+
+                            opponentBoard[line][col] = 1;
+                            break;
+                        }
                         out.println(move);
                         break;
                     case "UPDATE":
@@ -73,7 +157,17 @@ public class SimpleClient {
                         } else if (argument.equals(opponentName)) {
                             System.out.println("Sorry, you lost! Care for a rematch? (YES/NO)");
                         }
-                        out.println(commandLineInput.readLine());
+
+                        String response;
+                        while (true) {
+                            response = commandLineInput.readLine();
+                            if (!response.equals("YES") && !response.equals("NO")) {
+                                System.out.println("Please input YES if you want to play again or NO if you don't.");
+                                continue;
+                            }
+                            break;
+                        }
+                        out.println(response);
                         break;
                     case "REMATCH":
                         // rematch -> a new match will begin
