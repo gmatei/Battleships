@@ -8,7 +8,6 @@ clasa Game - 2 constructori -> se deschide cate o functie diferita in functie de
 
 
 CLIENT
-- este intrebat numele
 - client pozitioneaza barcile (eventual astepti player 2) si trimite la server
 - retine cele 2 matrice pe care le modifica in functie de comenzile trimise / primite de la server
 - pana cand primeste de la server STOP + castigator 
@@ -29,12 +28,11 @@ Client -> Server : <<NAME>> <<MODE>>
 Client : Wait for opponent...
 Server -> Client : Your opponent is <<OP_NAME>>  
 
+Logica mutari
 Client -> Server : tabla joc (matrice de int 10x10)		linii - numere     coloane - litere
 Client : Wait for opponent...
 
 Server -> Client : Starting game...
-
-Logica mutari
 
 while(!gameOver)
 {Server -> Client1 : "MOVE_Make your move"

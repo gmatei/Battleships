@@ -27,7 +27,7 @@ public class SimpleClient {
             String name = commandLineInput.readLine();
             System.out.println("Singleplayer/Multiplayer? (true/false)");
             String mode = commandLineInput.readLine();
-            out.println(name + " " + mode);
+            out.println(name + "#" + mode);
 
             System.out.println("Waiting for opponent to finish registration...");
             String opponentName = in.readLine();
