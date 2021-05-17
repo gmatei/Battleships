@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class VirtualPlayer {
 
     private String name = "Battle BOT";
@@ -22,5 +24,31 @@ public class VirtualPlayer {
 
     public void setShipsNr(int shipsNr) {
         this.shipsNr = shipsNr;
+    }
+
+    public void newGameReset() {
+        shipsNr = 5;
+        Arrays.stream(board).forEach(a -> Arrays.fill(a, 0));
+    }
+
+    public String makeMove() {
+        return null;
+    }
+
+    public boolean recordOpponentMove(String move) {
+        int line = move.charAt(0) - 'A';
+        int col = move.charAt(1) - '0';
+        if(board[line][col] == 1) 
+        {
+            if(shipDestroyed())
+                shipsNr--;
+            board[line][col] = 0;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean shipDestroyed() {
+        return true;
     }
 }

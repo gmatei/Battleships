@@ -152,9 +152,9 @@ public class SimpleClient {
                         break;
                     case "STOP":
                         // stop -> display a custom message depending on whether you won or lost & send YES/NO back to the server
-                        if (argument.equals(name)) {
+                        if (argument.equals("Winner")) {
                             System.out.println("Congrats, you won! Care for a rematch? (YES/NO)");
-                        } else if (argument.equals(opponentName)) {
+                        } else if (argument.equals("Loser")) {
                             System.out.println("Sorry, you lost! Care for a rematch? (YES/NO)");
                         }
 

@@ -1,4 +1,5 @@
 import java.net.Socket;
+import java.util.Arrays;
 
 public class Player {
 
@@ -44,5 +45,27 @@ public class Player {
 
     public void setShipsNr(int shipsNr) {
         this.shipsNr = shipsNr;
+    }
+
+    public void newGameReset() {
+        shipsNr = 5;
+        Arrays.stream(board).forEach(a -> Arrays.fill(a, 0));
+    }
+
+    public boolean recordOpponentMove(String move) {
+        int line = move.charAt(0) - 'A';
+        int col = move.charAt(1) - '0';
+        if(board[line][col] == 1)
+        {
+            if(shipDestroyed())
+                shipsNr--;
+            board[line][col] = 0;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean shipDestroyed() {
+        return true;
     }
 }

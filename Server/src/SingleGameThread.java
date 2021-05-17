@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 
 public class SingleGameThread extends Thread{
 
-    Player player;
-    VirtualPlayer botPlayer;
+    private Player player;
+    private VirtualPlayer botPlayer;
 
     public SingleGameThread(Player player) {
         this.player = player;
@@ -25,6 +25,8 @@ public class SingleGameThread extends Thread{
             boolean running = true;
             while (player.getSocket().isConnected() && running)
             {
+                player.newGameReset();
+                botPlayer.newGameReset();
                 String clientBoard = in.readLine();   //read board received as String created in client by using deepToString method
                 player.setBoard(stringToMatrixBoard(clientBoard)); //set board as int matrix
 
@@ -36,45 +38,63 @@ public class SingleGameThread extends Thread{
                 boolean gameOver = false;
                 while(!gameOver)
                 {
-                    if (player1ToMove)
+                    if (player1ToMove) // human player to move
                     {
-                        out.println("MOVE_Make your move!")     //Server -> Client1 : "MOVE_Make your move"
+                        out.println("MOVE_Make your move!");    //Server -> Client1 : "MOVE_Make your move"
                         String move = in.readLine();            //Client1 -> Server : <<LetterDigit>>
+                        boolean boatHit = botPlayer.recordOpponentMove(move);
+
+                        if (boatHit)
+                        {
+                            out.println("HIT_" + move);
+                        }
+                        else
+                        {
+                            out.println("MISS_" + move);
+                            player1ToMove = false;
+                        }
                     }
+                    else    // virtual player to move
+                    {
+                        String move = botPlayer.makeMove();
+                        boolean boatHit = player.recordOpponentMove(move);
 
-                    if (VirtualPlayer)
-
-//                    if (boat_hit)
-//                    {Server -> Client2 : "UPDATE_<<LetterDigit>>"
-//                        Server -> Client1 : "HIT_<<LetterDigit>>"
-//                    }
-//                    else
-//                    {
-//                        Server -> Client2 : "UPDATE_<<LetterDigit>>"
-//                        Server -> Client1 : "MISS_<<LetterDigit>>"
-//                        changeCurrentPlayer();
-//                    }
-//                    gameOver = isGameOver();
+                        out.println("UPDATE_" + move);
+                        if (!boatHit) {
+                            player1ToMove = true;
+                        }
+                    }
+                    gameOver = isGameOver();
                 }
 
-//                Server -> ClientWinner : "STOP_Winner"
-//                Server -> ClientLoser  : "STOP_Loser"
-//
-//                Client1 & Client2 -> Server : "YES / NO"
-//
-//                if(bothYes)
-//                    Server -> Client1 & Client2 : "Starting new game"
-//	                goto LogicaMutari
-//	            else
-//                Server -> Client1 & Client2 : "Ending game"
+                if(player1ToMove)
+                    out.println("STOP_Winner");   // human player won
+                else
+                    out.println("STOP_Loser");    // human player lost
 
+                String playAgainResponse = in.readLine();
+
+                if(playAgainResponse.equals("YES"))
+                {
+                    out.println("REMATCH_Play again");
+                }
+                else
+                {
+                    out.println("END_Stop game");
+                    running = false;
+                }
             }
-
+            player.getSocket().close();
         }
         catch (IOException e)
         {
             System.err.println("Communication error... " + e);
         }
+    }
+
+    private boolean isGameOver()
+    {
+        return botPlayer.getShipsNr() == 0 || player.getShipsNr() == 0;
     }
 
     private int[][] stringToMatrixBoard(String clientBoard) { //fu
