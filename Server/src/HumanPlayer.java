@@ -1,7 +1,7 @@
 import java.net.Socket;
 import java.util.Arrays;
 
-public class Player {
+public class HumanPlayer {
 
     private Socket socket;
     private String name;
@@ -9,7 +9,7 @@ public class Player {
     private int[][] board = new int[10][10];
     private int shipsNr = 5;
 
-    public Player(Socket socket, String name, String mode) {
+    public HumanPlayer(Socket socket, String name, String mode) {
         this.socket = socket;
         this.name = name;
         this.mode = mode;
