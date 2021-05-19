@@ -82,7 +82,11 @@ public class SimpleClient {
 
                             boolean ok = true;
                             for (int j = col; j < col + ship.getValue(); j++) {
-                                if (board[line][j] != 0) {
+                                if (board[line][j] != 0 ||
+                                    (line + 1 <= 9 && board[line + 1][j] != 0) ||
+                                    (line - 1 >= 0 && board[line - 1][j] != 0) ||
+                                    (j + 1 <= 9 && board[line][j + 1] != 0) ||
+                                    (j - 1 >= 0 && board[line][j - 1] != 0)) {
                                     ok = false;
                                     break;
                                 }
@@ -104,7 +108,11 @@ public class SimpleClient {
 
                             boolean ok = true;
                             for (int i = line; i < line + ship.getValue(); i++) {
-                                if (board[i][col] != 0) {
+                                if (board[i][col] != 0 ||
+                                    (i + 1 <= 9 && board[i + 1][col] != 0) ||
+                                    (i - 1 >= 0 && board[i - 1][col] != 0) ||
+                                    (col + 1 <= 9 && board[i][col + 1] != 0) ||
+                                    (col - 1 >= 0 && board[i][col - 1] != 0)) {
                                     ok = false;
                                     break;
                                 }
