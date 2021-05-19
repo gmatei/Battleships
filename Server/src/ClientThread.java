@@ -30,7 +30,6 @@ public class ClientThread extends Thread {
             if (mode.equals("true"))
             {
                 //start single player
-
                 new SingleGameThread(player).start();
             }
             else

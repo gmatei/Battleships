@@ -18,7 +18,7 @@ public class SingleGameThread extends Thread{
         try
         {
             BufferedReader in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
-            PrintWriter out = new PrintWriter(player.getSocket().getOutputStream());
+            PrintWriter out = new PrintWriter(player.getSocket().getOutputStream(), true);
 
             out.println(botPlayer.getName()); //send bot name to player
 
@@ -108,7 +108,7 @@ public class SingleGameThread extends Thread{
                 board[line][col] = clientBoard.charAt(i) - '0';
                 col++;
 
-                if(col == 9)
+                if(col == 10)
                 {
                     col = 0;
                     line++;

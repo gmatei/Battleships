@@ -101,18 +101,18 @@ public class VirtualPlayer {
 
     public String makeMove() {
 
-        char line;
-        char col;
+        int line;
+        int col;
 
         do {
-            line = (char) ((int) (Math.random() * 10) + 'A');
-            col = (char) ((int) (Math.random() * 10) + '0');
+            line = (int) (Math.random() * 10);
+            col = (int) (Math.random() * 10);
         } while (!moveValid(line, col));
 
-        return "" + line + col;
+        return "" + (char) (line + 'A') + (char) (col + '0');
     }
 
-    private boolean moveValid(char line, char col) {
+    private boolean moveValid(int line, int col) {
         return board[line][col] == 0 || board[line][col] == 1;
     }
 

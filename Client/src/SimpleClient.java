@@ -64,7 +64,7 @@ public class SimpleClient {
 
                     while (true) {
                         var placement = commandLineInput.readLine().split(" ", 2);
-                        if (placement[0].charAt(0) < 'A' || placement[0].charAt(0) > 'Z' ||
+                        if (placement[0].charAt(0) < 'A' || placement[0].charAt(0) > 'I' ||
                                 placement[0].charAt(1) < '0' || placement[0].charAt(1) > '9' ||
                                 !(placement[1].equals("V") || placement[1].equals("H"))) {
                             System.out.println("Placement format: <LetterDigit> <Orientation>");
@@ -75,7 +75,7 @@ public class SimpleClient {
                         int col  = placement[0].charAt(0) - 'A';
 
                         if (placement[1].equals("H")) {
-                            if (col + ship.getValue() > 9) {
+                            if (col + ship.getValue() > 10) {
                                 System.out.println("Invalid placement: out of bounds");
                                 continue;
                             }
@@ -101,7 +101,7 @@ public class SimpleClient {
                                 board[line][j] = 1;
                             }
                         } else {
-                            if (line + ship.getValue() > 9) {
+                            if (line + ship.getValue() > 10) {
                                 System.out.println("Invalid placement: out of bounds");
                                 continue;
                             }
@@ -133,7 +133,6 @@ public class SimpleClient {
                 }
                 out.println(Arrays.deepToString(board));
 
-
                 // -----------------------------------------------------------------------------------------
                 // ------------------------------------- GAME START ----------------------------------------
                 // -----------------------------------------------------------------------------------------
@@ -144,7 +143,19 @@ public class SimpleClient {
                 int[][] opponentBoard = new int[10][10];
                 boolean running = true;
 
+                System.out.print("  "); // colt stanga sus tabla
+                for (int i = 0; i < opponentBoard.length; i++) System.out.print((char)('A' + i) + " "); // literele de pe coloane
+                System.out.println();
+                for (int i = 0; i < opponentBoard.length; i++) {
+                    System.out.print(i + " "); // cifrele de pe linii
+                    for (int j = 0; j < opponentBoard[i].length; j++) {
+                        System.out.print(opponentBoard[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+
                 while (running) {
+
                     String serverMsg = in.readLine();
                     var tokens = serverMsg.split("_", 2);
                     String command = tokens[0];
@@ -211,6 +222,7 @@ public class SimpleClient {
                         case "REMATCH":
                             // rematch -> a new match will begin
                             System.out.println("Prepare for a new match to begin shortly...");
+                            running = false;
                             break;
                         case "END":
                             // end -> the game will end; display the message from the server
@@ -222,6 +234,17 @@ public class SimpleClient {
                             // not good if we arrived here - no command matches our switch case
                             // TODO: implement custom exception or sth
                             break;
+                    }
+
+                    System.out.print("  "); // colt stanga sus tabla
+                    for (int i = 0; i < opponentBoard.length; i++) System.out.print((char)('A' + i) + " "); // literele de pe coloane
+                    System.out.println();
+                    for (int i = 0; i < opponentBoard.length; i++) {
+                        System.out.print(i + " "); // cifrele de pe linii
+                        for (int j = 0; j < opponentBoard[i].length; j++) {
+                            System.out.print(opponentBoard[i][j] + " ");
+                        }
+                        System.out.println();
                     }
                 }
             }

@@ -18,9 +18,9 @@ public class MultiGameThread extends Thread{
         try
         {
             BufferedReader in1 = new BufferedReader(new InputStreamReader(player1.getSocket().getInputStream()));
-            PrintWriter out1 = new PrintWriter(player1.getSocket().getOutputStream());
+            PrintWriter out1 = new PrintWriter(player1.getSocket().getOutputStream(), true);
             BufferedReader in2 = new BufferedReader(new InputStreamReader(player2.getSocket().getInputStream()));
-            PrintWriter out2 = new PrintWriter(player2.getSocket().getOutputStream());
+            PrintWriter out2 = new PrintWriter(player2.getSocket().getOutputStream(), true);
 
 
             out1.println(player2.getName()); //send bot name to player
@@ -83,9 +83,15 @@ public class MultiGameThread extends Thread{
                 }
 
                 if(player1ToMove)
-                    out1.println("STOP_Winner");
+                    {
+                        out1.println("STOP_Winner");
+                        out2.println("STOP_Loser");
+                    }
                 else
-                    out2.println("STOP_Loser");
+                {
+                    out2.println("STOP_Winner");
+                    out1.println("STOP_Loser");
+                }
 
                 String playAgainResponse1 = in1.readLine();
                 String playAgainResponse2 = in2.readLine();
@@ -127,7 +133,7 @@ public class MultiGameThread extends Thread{
                 board[line][col] = clientBoard.charAt(i) - '0';
                 col++;
 
-                if(col == 9)
+                if(col == 10)
                 {
                     col = 0;
                     line++;
