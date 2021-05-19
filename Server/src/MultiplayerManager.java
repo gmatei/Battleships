@@ -2,7 +2,7 @@ public class MultiplayerManager {
 
     private static MultiplayerManager manager = null;
     private boolean gameWaitingSecondPlayer = false;
-    private Player playerWaiting;
+    private HumanPlayer playerWaiting;
 
     private MultiplayerManager() {
 
@@ -16,7 +16,7 @@ public class MultiplayerManager {
         return manager;
     }
 
-    public void addPlayer(Player playerReceived) {
+    public void addPlayer(HumanPlayer playerReceived) {
 
         if (!gameWaitingSecondPlayer)
             {

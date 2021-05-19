@@ -4,10 +4,10 @@ import java.io.InputStreamReader;
 
 public class MultiGameThread extends Thread{
 
-    Player player1;
-    Player player2;
+    HumanPlayer player1;
+    HumanPlayer player2;
 
-    public MultiGameThread(Player player1, Player player2) {
+    public MultiGameThread(HumanPlayer player1, HumanPlayer player2) {
         this.player1 = player1;
         this.player2 = player2;
     }

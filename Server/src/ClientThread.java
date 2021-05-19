@@ -20,30 +20,23 @@ public class ClientThread extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //PrintWriter out = new PrintWriter(socket.getOutputStream());
 
+            String clientMsg = in.readLine();   //read name and playing mode separated by '#'
+            var tokens = clientMsg.split("#", 2);
 
-            boolean running = true;
-            while (socket.isConnected() && running)
+            String name = tokens[0];
+            String mode = tokens[1];
+            HumanPlayer player = new HumanPlayer(socket, name, mode);
+
+            if (mode.equals("true"))
             {
-                String clientMsg = in.readLine();   //read name and playing mode separated by '#'
-                var tokens = clientMsg.split("#", 2);
+                //start single player
 
-                String name = tokens[0];
-                String mode = tokens[1];
-                Player player = new Player(socket, name, mode);
-
-                if (mode.equals("true"))
-                {
-                    //start single player
-
-                    new SingleGameThread(player).start();
-
-                    running = false; //client has been assigned to a game
-                }
-                else
-                {
-                    //start multi player
-                    manager.addPlayer(player); //add player to the waiting list
-                }
+                new SingleGameThread(player).start();
+            }
+            else
+            {
+                //start multi player
+                manager.addPlayer(player); //add player to the waiting list
             }
 
 

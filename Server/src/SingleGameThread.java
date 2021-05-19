@@ -5,16 +5,16 @@ import java.io.PrintWriter;
 
 public class SingleGameThread extends Thread{
 
-    private Player player;
-    private VirtualPlayer botPlayer;
+    private final HumanPlayer player;
+    private final VirtualPlayer botPlayer;
 
-    public SingleGameThread(Player player) {
+    public SingleGameThread(HumanPlayer player) {
         this.player = player;
+        this.botPlayer = new VirtualPlayer();
     }
 
     public void run()
     {
-
         try
         {
             BufferedReader in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
@@ -97,7 +97,7 @@ public class SingleGameThread extends Thread{
         return botPlayer.getShipsNr() == 0 || player.getShipsNr() == 0;
     }
 
-    private int[][] stringToMatrixBoard(String clientBoard) { //fu
+    private int[][] stringToMatrixBoard(String clientBoard) {
 
         int[][] board = new int[10][10];
         int col = 0;
@@ -115,7 +115,6 @@ public class SingleGameThread extends Thread{
                 }
             }
         }
-
         return board;
     }
 
