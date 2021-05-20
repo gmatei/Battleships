@@ -121,16 +121,49 @@ public class VirtualPlayer {
         int col = move.charAt(1) - '0';
         if(board[line][col] == 1)
         {
-            if(shipDestroyed())
+            if(shipDestroyed(line, col))
                 shipsNr--;
-            board[line][col] = 0;
+            board[line][col] = 2;
             return true;
         }
         return false;
     }
 
-    private boolean shipDestroyed() {
+    private boolean shipDestroyed(int line, int col) {
+        for (int i = line; i < 9; i++)
+        {
+            if (board[i][col] == 1)
+                return false;
+            if (board[i][col] == 0 || board[i][col] == 3)
+                break;
+        }
+
+        for (int i = line; i > 0; i--)
+        {
+            if (board[i][col] == 1)
+                return false;
+            if (board[i][col] == 0 || board[i][col] == 3)
+                break;
+        }
+
+        for (int j = col; j < 9; j++)
+        {
+            if (board[line][j] == 1)
+                return false;
+            if (board[line][j] == 0 || board[line][j] == 3)
+                break;
+        }
+
+        for (int j = col; j > 0; j--)
+        {
+            if (board[line][j] == 1)
+                return false;
+            if (board[line][j] == 0 || board[line][j] == 3)
+                break;
+        }
+
         return true;
+
     }
 
 }
