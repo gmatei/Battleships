@@ -53,20 +53,21 @@ public class HumanPlayer {
     }
 
     public boolean recordOpponentMove(String move) {
-        int line = move.charAt(0) - 'A';
-        int col = move.charAt(1) - '0';
+        int col = move.charAt(0) - 'A';
+        int line = move.charAt(1) - '0';
         if(board[line][col] == 1)
         {
+            board[line][col] = 2;
             if(shipDestroyed(line, col))
                 shipsNr--;
-            board[line][col] = 2;
             return true;
         }
+        board[line][col] = 3;
         return false;
     }
 
     private boolean shipDestroyed(int line, int col) {
-        for (int i = line; i < 9; i++)
+        for (int i = line; i <= 9; i++)
         {
             if (board[i][col] == 1)
                 return false;
@@ -74,7 +75,7 @@ public class HumanPlayer {
                 break;
         }
 
-        for (int i = line; i > 0; i--)
+        for (int i = line; i >= 0; i--)
         {
             if (board[i][col] == 1)
                 return false;
@@ -82,7 +83,7 @@ public class HumanPlayer {
                 break;
         }
 
-        for (int j = col; j < 9; j++)
+        for (int j = col; j <= 9; j++)
         {
             if (board[line][j] == 1)
                 return false;
@@ -90,7 +91,7 @@ public class HumanPlayer {
                 break;
         }
 
-        for (int j = col; j > 0; j--)
+        for (int j = col; j >= 0; j--)
         {
             if (board[line][j] == 1)
                 return false;

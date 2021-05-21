@@ -56,7 +56,13 @@ public class SingleGameThread extends Thread{
                     }
                     else    // virtual player to move
                     {
-                        String move = botPlayer.makeMove();
+                        String move;
+                        do
+                        {
+                            move = botPlayer.makeMove();
+                        }
+                        while (!moveValid(move));
+
                         boolean boatHit = player.recordOpponentMove(move);
 
                         out.println("UPDATE_" + move);
@@ -116,6 +122,14 @@ public class SingleGameThread extends Thread{
             }
         }
         return board;
+    }
+
+    private boolean moveValid(String move)
+    {
+        int line = move.charAt(1) - '0';
+        int col = move.charAt(0) - 'A';
+
+        return player.getBoard()[line][col] == 0 || player.getBoard()[line][col] == 1;
     }
 
 }

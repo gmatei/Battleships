@@ -1,2 +1,39 @@
-Client
-- doesnt show last boat put
+Ecran 1 (Main Menu)
+
+Console Log:
+- What's your name? -> INPUT : NAME + Enter	
+- Welcome NAME! Please select game mode!
+- Searching for opponent...
+
+In case of trying to start game without name: - Please enter your name!
+
+
+Ecran 2 (Ship Placement)
+
+Console Log:
+- Place your boats!
+- Ship overlapping! / Ships can't be adjacent! / Ship out of bounds!
+- Boats placed! Press Play to start game!
+- Wait for opponent...
+
+Ecran 3 (Game)
+
+Console Log:
+	P1								P2
+- Make your move!	 				Wait for opponent to make his move!
+
+
+
+- You hit! Go again!	       				NAME hit on <<POSITION>>! 
+
+
+
+- You missed! Wait for NAME to make his move!		NAME missed on <<POSTITION>>! Make your move!
+
+
+- Game Over! <<NAME>> won! Play again?
+- Wait for opponent...
+YES + YES -> Starting new game... -> goto 2
+NO + NO -> Thanks for playing! Returning to Main Menu...
+YES + NO -> YES -> The other player disconnected! Returning to Main Menu... -> goto1
+	    NO  -> Thanks for playing! Returning to Main Menu... -> goto1

@@ -38,18 +38,19 @@ public class VirtualPlayer {
                 } while (board[line][col] != 0);    //find an unoccupied spot
 
                 int boatSize = ship.getValue();
-                currentBoatPositioned = true;
 
                 if (positioning == 1)   // position the boat vertically
                 {
                     if (line + boatSize > 9)
                         continue;
 
+                    currentBoatPositioned = true;
+
                     for (int i = line; boatSize > 0; boatSize--, i++)
                     {
-                        if (line < 9)
+                        if (i < 9)
                             if (board[i+1][col] == 1)    {currentBoatPositioned = false; break;}
-                        if (line > 0)
+                        if (i > 0)
                             if (board[i-1][col] == 1)    {currentBoatPositioned = false; break;}
                         if (col < 9)
                             if (board[i][col+1] == 1)    {currentBoatPositioned = false; break;}
@@ -66,16 +67,18 @@ public class VirtualPlayer {
                     if (col + boatSize > 9)
                         continue;
 
+                    currentBoatPositioned = true;
+
                     for (int j = col; boatSize > 0; boatSize--, j++)
                     {
                         if (line < 9)
                             if (board[line+1][j] == 1)    {currentBoatPositioned = false; break;}
                         if (line > 0)
                             if (board[line-1][j] == 1)    {currentBoatPositioned = false; break;}
-                        if (col < 9)
-                            if (board[line][j] == 1)    {currentBoatPositioned = false; break;}
-                        if (col > 0)
-                            if (board[line][j] == 1)    {currentBoatPositioned = false; break;}
+                        if (j < 9)
+                            if (board[line][j+1] == 1)    {currentBoatPositioned = false; break;}
+                        if (j > 0)
+                            if (board[line][j-1] == 1)    {currentBoatPositioned = false; break;}
                     }
 
                     if(currentBoatPositioned)
@@ -101,36 +104,31 @@ public class VirtualPlayer {
 
     public String makeMove() {
 
-        int line;
-        int col;
+        char line;
+        char col;
 
-        do {
-            line = (int) (Math.random() * 10);
-            col = (int) (Math.random() * 10);
-        } while (!moveValid(line, col));
+        col = (char) ((int) (Math.random() * 10) + 'A');
+        line = (char) ((int) (Math.random() * 10) + '0');
 
-        return "" + (char) (line + 'A') + (char) (col + '0');
-    }
-
-    private boolean moveValid(int line, int col) {
-        return board[line][col] == 0 || board[line][col] == 1;
+        return "" + col + line;
     }
 
     public boolean recordOpponentMove(String move) {
-        int line = move.charAt(0) - 'A';
-        int col = move.charAt(1) - '0';
+        int col = move.charAt(0) - 'A';
+        int line = move.charAt(1) - '0';
         if(board[line][col] == 1)
         {
+            board[line][col] = 2;
             if(shipDestroyed(line, col))
                 shipsNr--;
-            board[line][col] = 2;
             return true;
         }
+        board[line][col] = 3;
         return false;
     }
 
     private boolean shipDestroyed(int line, int col) {
-        for (int i = line; i < 9; i++)
+        for (int i = line; i <= 9; i++)
         {
             if (board[i][col] == 1)
                 return false;
@@ -138,7 +136,7 @@ public class VirtualPlayer {
                 break;
         }
 
-        for (int i = line; i > 0; i--)
+        for (int i = line; i >= 0; i--)
         {
             if (board[i][col] == 1)
                 return false;
@@ -146,7 +144,7 @@ public class VirtualPlayer {
                 break;
         }
 
-        for (int j = col; j < 9; j++)
+        for (int j = col; j <= 9; j++)
         {
             if (board[line][j] == 1)
                 return false;
@@ -154,7 +152,7 @@ public class VirtualPlayer {
                 break;
         }
 
-        for (int j = col; j > 0; j--)
+        for (int j = col; j >= 0; j--)
         {
             if (board[line][j] == 1)
                 return false;

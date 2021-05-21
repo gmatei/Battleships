@@ -62,7 +62,7 @@ public class MultiGameThread extends Thread{
                             player1ToMove = false;
                         }
                     }
-                    else    // virtual player to move
+                    else
                     {
                         out2.println("MOVE_Make your move!");    //Server -> Client2 : "MOVE_Make your move"
                         String move = in2.readLine();            //Client2 -> Server : <<LetterDigit>>
@@ -76,7 +76,7 @@ public class MultiGameThread extends Thread{
                         else
                         {
                             out2.println("MISS_" + move);
-                            player1ToMove = false;
+                            player1ToMove = true;
                         }
                     }
                     gameOver = isGameOver();
