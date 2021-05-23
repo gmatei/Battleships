@@ -5,8 +5,6 @@ Console Log:
 - Welcome NAME! Please select game mode!
 - Searching for opponent...
 
-In case of trying to start game without name: - Please enter your name!
-
 
 Ecran 2 (Ship Placement)
 
