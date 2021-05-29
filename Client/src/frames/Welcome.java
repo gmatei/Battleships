@@ -17,6 +17,7 @@ public class Welcome extends JFrame {
         super("Welcome");
         this.manager = manager;
         init();
+        setLocationRelativeTo(null);
     }
 
     private void init() {

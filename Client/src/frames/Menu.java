@@ -25,6 +25,7 @@ public class Menu extends JFrame {
         super("Battleships");
         this.manager = manager;
         init();
+        setLocationRelativeTo(null);
     }
 
     private void init() {
@@ -52,10 +53,14 @@ public class Menu extends JFrame {
         singleplayerBtn.setFont(buttonFont);
         singleplayerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                manager.setWaiting(new Waiting(manager));
+//                manager.setWaiting(new Waiting(manager));
+//                manager.setMenuVisibility(false);
+//                manager.setWaitingVisibility(true);
+//                manager.getWaiting().display();
+
+                manager.setShipPlacement(new ShipPlacement(manager));
                 manager.setMenuVisibility(false);
-                manager.setWaitingVisibility(true);
-                manager.getWaiting().display();
+                manager.setShipPlacementVisibility(true);
             }
 
             public void mouseEntered(java.awt.event.MouseEvent evt) {
