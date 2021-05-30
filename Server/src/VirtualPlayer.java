@@ -119,6 +119,7 @@ public class VirtualPlayer {
         char col;
         String move;
         boolean changedDirection = false;
+        boolean justMovedUpToLeft = false;
 
         if (boatHit)
             {
@@ -129,12 +130,16 @@ public class VirtualPlayer {
                 hitCounter++;
             }
         if (triedAgain && hitMode.equals("targeted"))
-            {
-                targetDirection++;
-                changedDirection = true;
+        {
+            targetDirection++;
+            changedDirection = true;
+            if (targetDirection == 3) {
+                changedDirection = false;
+                justMovedUpToLeft = true;
             }
+        }
 
-        if(hitCounter >= Arrays.stream(boatSizes).max().getAsInt() || targetDirection == 5 || (hitCounter > 1 && targetDirection == 3))
+        if(hitCounter >= Arrays.stream(boatSizes).max().getAsInt() || targetDirection == 5 || (hitCounter > 1 && targetDirection == 3 && justMovedUpToLeft))
             {
                 hitMode = "random";
                 hitCounter = 0;
@@ -142,12 +147,14 @@ public class VirtualPlayer {
                 prevHitPosition = "none";
                 firstHit = "none";
             }
+        justMovedUpToLeft = false;
 
         if(hitMode.equals("random"))
         {
             col = (char) ((int) (Math.random() * 10) + 'A');
             line = (char) ((int) (Math.random() * 10) + '0');
-            move = col + line + "";
+            move = "" + col + line;
+            System.out.println(move);
         }
         else
         {
