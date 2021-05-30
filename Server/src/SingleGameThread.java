@@ -36,6 +36,7 @@ public class SingleGameThread extends Thread{
 
                 boolean player1ToMove = true;
                 boolean gameOver = false;
+                boolean previouslyHitPlayer = false;
                 while(!gameOver)
                 {
                     if (player1ToMove) // human player to move
@@ -57,9 +58,11 @@ public class SingleGameThread extends Thread{
                     else    // virtual player to move
                     {
                         String move;
+                        boolean triedAgain = false;
                         do
                         {
-                            move = botPlayer.makeMove();
+                            move = botPlayer.makeMove(previouslyHitPlayer, triedAgain);
+                            triedAgain = true;
                         }
                         while (!moveValid(move));
 
@@ -68,6 +71,10 @@ public class SingleGameThread extends Thread{
                         out.println("UPDATE_" + move);
                         if (!boatHit) {
                             player1ToMove = true;
+                            previouslyHitPlayer = false;
+                        }
+                        else {
+                            previouslyHitPlayer = true;
                         }
                     }
                     gameOver = isGameOver();
@@ -124,8 +131,11 @@ public class SingleGameThread extends Thread{
         return board;
     }
 
-    private boolean moveValid(String move)
+    public boolean moveValid(String move)
     {
+        if(move.charAt(1) < '0' || move.charAt(1) > '9' || move.charAt(0) < 'A' || move.charAt(0) > 'J')
+            return false;
+
         int line = move.charAt(1) - '0';
         int col = move.charAt(0) - 'A';
 
