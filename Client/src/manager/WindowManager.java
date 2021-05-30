@@ -7,12 +7,25 @@ public class WindowManager {
     private Welcome welcome;
     private Waiting waiting;
     private ShipPlacement shipPlacement;
+    private Game game;
 
     private String name;
 
     public WindowManager() {
         welcome = new Welcome(this);
         welcome.setVisible(true);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void setGameVisibility(boolean visible) {
+        game.setVisible(visible);
     }
 
     public void setShipPlacement(ShipPlacement placement) {

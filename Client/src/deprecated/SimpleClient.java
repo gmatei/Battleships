@@ -176,7 +176,6 @@ public class SimpleClient {
         } else {
             board[argument.charAt(1) - '0'][argument.charAt(0) - 'A'] = 3;
         }
-
     }
 
     private void displayGameState() {

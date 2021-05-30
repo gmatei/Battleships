@@ -106,6 +106,10 @@ public class BoardHolder extends JPanel {
         });
     }
 
+    public int[][] getBoard() {
+        return board;
+    }
+
     public void resetShips() {
         ships.put("Carrier", 5);
         ships.put("Battleship", 4);
