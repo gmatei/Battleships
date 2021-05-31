@@ -23,13 +23,13 @@ public class Waiting extends JFrame {
 
         var label = new JLabel("Waiting for opponent...");
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                manager.setWaitingVisibility(false);
-                manager.setShipPlacement(new ShipPlacement(manager));
-                manager.setShipPlacementVisibility(true);
-            }
-        });
+//        label.addMouseListener(new java.awt.event.MouseAdapter() {
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                manager.setWaitingVisibility(false);
+//                manager.setShipPlacement(new ShipPlacement(manager));
+//                manager.setShipPlacementVisibility(true);
+//            }
+//        });
         panel.add(label);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

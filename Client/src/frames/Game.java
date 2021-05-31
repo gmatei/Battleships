@@ -146,6 +146,7 @@ public class Game extends JFrame {
                             running = false;
                             manager.setGameVisibility(false);
                             manager.setShipPlacementVisibility(true);
+                            manager.shipPlacement.boardHolder.resetShips();
                         }
                         case "END" -> {
                             // end -> the game will end; display the message from the server

@@ -6,7 +6,7 @@ public class WindowManager {
     private Menu menu;
     private Welcome welcome;
     private Waiting waiting;
-    private ShipPlacement shipPlacement;
+    public ShipPlacement shipPlacement;
     private Game game;
 
     private String name;

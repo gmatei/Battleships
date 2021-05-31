@@ -58,7 +58,7 @@ public class Menu extends JFrame {
 //                manager.setWaitingVisibility(true);
 //                manager.getWaiting().display();
 
-                manager.setShipPlacement(new ShipPlacement(manager));
+                manager.setShipPlacement(new ShipPlacement(manager, "true"));
                 manager.setMenuVisibility(false);
                 manager.setShipPlacementVisibility(true);
             }
@@ -74,6 +74,14 @@ public class Menu extends JFrame {
 
         multiplayerBtn.setFont(buttonFont);
         multiplayerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                console.setText("Searching for opponent...");
+                manager.setShipPlacement(new ShipPlacement(manager, "false"));
+                manager.setMenuVisibility(false);
+                manager.setShipPlacementVisibility(true);
+            }
+
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 console.setText("Multiplayer mode: Battle against a human opponent.");
             }

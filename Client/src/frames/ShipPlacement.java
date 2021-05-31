@@ -17,16 +17,17 @@ import static java.awt.BorderLayout.*;
 
 public class ShipPlacement extends JFrame {
 
-    private String mode = "true";
+    private String mode;
     private String opponentName;
     private final WindowManager manager;
     public LoggerHolder loggerHolder = new LoggerHolder(new JLabel("Place your boats!"));
-    private BoardHolder boardHolder = new BoardHolder(this);
+    BoardHolder boardHolder = new BoardHolder(this);
     private JPanel auxiliaryHolder = new JPanel();
 
-    public ShipPlacement(WindowManager manager) {
+    public ShipPlacement(WindowManager manager, String mode) {
         super("Ship placement");
         this.manager = manager;
+        this.mode = mode;
         init();
         setLocationRelativeTo(null);
     }

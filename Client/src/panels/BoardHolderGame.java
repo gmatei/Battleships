@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardHolderGame extends JPanel {
-    public boolean canMove = true;
+    public boolean canMove = false;
     private final int W = 1650, H = 770;
     private final int boxW = W / 22, boxH = H / 11;
     private BufferedImage image;
