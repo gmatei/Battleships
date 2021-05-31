@@ -162,14 +162,15 @@ public class BoardHolderGame extends JPanel {
                 graphics.setColor(Color.black);
                 graphics.setStroke(new BasicStroke(1));
             }
-        } else if (r.getType().equals(ContentRectangle.CellType.BLANK)) {
-            if (r.x > 0) { // opponent
-                graphics.drawString(GameConnection.getOpponentName() + "'s", r.x + 10, r.y + 25);
-            } else { // me
-                graphics.drawString(GameConnection.getName() + "'s", r.x + 10, r.y + 25);
-            }
-            graphics.drawString("board", r.x + 10, r.y + 50);
         }
+//        else if (r.getType().equals(ContentRectangle.CellType.BLANK)) {
+//            if (r.x > 0) { // opponent
+//                graphics.drawString(GameConnection.getOpponentName() + "'s", r.x + 10, r.y + 25);
+//            } else { // me
+//                graphics.drawString(GameConnection.getName() + "'s", r.x + 10, r.y + 25);
+//            }
+//            graphics.drawString("board", r.x + 10, r.y + 50);
+//        }
     }
 
     @Override

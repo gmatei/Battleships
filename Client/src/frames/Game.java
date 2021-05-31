@@ -35,20 +35,35 @@ public class Game extends JFrame {
         in = GameConnection.getInputStream();
         previousMessage.getLogger().setText("...");
         currentMessage.getLogger().setText("Awaiting game start...");
+        currentMessage.getLogger().setFont(new Font("Dialog", Font.BOLD, 20));
+        currentMessage.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
 
-        add(previousMessage, NORTH);
-        add(currentMessage, CENTER);
+        var names = new JPanel(new GridLayout(1, 2));
+        var name1 = new JLabel(GameConnection.getName() + "'s board");
+        name1.setFont(new Font("Dialog", Font.BOLD, 14));
+        name1.setHorizontalAlignment(JLabel.CENTER);
+        var name2 = new JLabel(GameConnection.getOpponentName() + "'s board");
+        name2.setFont(new Font("Dialog", Font.BOLD, 14));
+        name2.setHorizontalAlignment(JLabel.CENTER);
+        names.add(name1);
+        names.add(name2);
+
+
+        var northPanel = new JPanel();
+        northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.PAGE_AXIS));
+        northPanel.add(previousMessage);
+        northPanel.add(currentMessage);
+        northPanel.add(names);
+        add(northPanel, NORTH);
+        add(boardHolder, CENTER);
 
         var southPanel = new JPanel();
-        southPanel.add(boardHolder);
-
         var yesBtn = new JButton("YES");
         yesBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (gameEnded) {
                     out.println("YES");
                 }
-
             }
         });
         southPanel.add(yesBtn);
@@ -134,9 +149,9 @@ public class Game extends JFrame {
                         case "STOP" -> {
                             // stop -> display a custom message depending on whether you won or lost & send YES/NO back to the server
                             if (argument.equals("Winner")) {
-                                updateLoggers("Congrats, you won! Care for a rematch?");
+                                updateLoggers("Congrats, you won! Care for a rematch? (Choose by pressing the buttons below)");
                             } else if (argument.equals("Loser")) {
-                                updateLoggers("Sorry, you lost! Care for a rematch?");
+                                updateLoggers("Sorry, you lost! Care for a rematch? (Choose by pressing the buttons below)");
                             }
                             gameEnded = true;
                         }
