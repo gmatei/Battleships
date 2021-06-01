@@ -7,6 +7,7 @@ public class WindowManager {
     private Welcome welcome;
     private Waiting waiting;
     public ShipPlacement shipPlacement;
+    public HowToPlay howToPlay;
     private Game game;
 
     private String name;
@@ -30,6 +31,14 @@ public class WindowManager {
 
     public void setShipPlacementVisibility(boolean visible) {
         shipPlacement.setVisible(visible);
+    }
+
+    public void setHowToPlay(HowToPlay howToPlay) {
+        this.howToPlay = howToPlay;
+    }
+
+    public void setHowToPlayVisibility(boolean visible) {
+        howToPlay.setVisible(visible);
     }
 
     public void setWaiting(Waiting waiting) {

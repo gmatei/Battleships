@@ -1,3 +1,8 @@
+package GameThreads;
+
+import Players.HumanPlayer;
+import Players.VirtualPlayer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -140,6 +145,14 @@ public class SingleGameThread extends Thread{
         int line = move.charAt(1) - '0';
         int col = move.charAt(0) - 'A';
 
+//        if (!randomConditions(line, col))
+//            return false;
+
+        return player.getBoard()[line][col] == 0 || player.getBoard()[line][col] == 1;
+    }
+
+    public boolean randomConditions (int line, int col)
+    {
         if (botPlayer.getHitMode().equals("random"))
         {
             if (line < 9)
@@ -158,21 +171,20 @@ public class SingleGameThread extends Thread{
                 if (player.getBoard()[line][col - 1] == 2)
                     return false;
 
-        int linSpace = 0;
-        int colSpace = 0;
+            int linSpace = 0;
+            int colSpace = 0;
 
-        for (int i = line; player.getBoard()[i][col] == 0 || player.getBoard()[i][col] == 1; i++, linSpace++){ if (i == 9) break; }
-        for (int i = line; player.getBoard()[i][col] == 0 || player.getBoard()[i][col] == 1; i--, linSpace++){ if (i == 0) break; }
+            for (int i = line; player.getBoard()[i][col] == 0 || player.getBoard()[i][col] == 1; i++, linSpace++){ if (i == 9) break; }
+            for (int i = line; player.getBoard()[i][col] == 0 || player.getBoard()[i][col] == 1; i--, linSpace++){ if (i == 0) break; }
 
-        for (int j = col; player.getBoard()[line][j] == 0 || player.getBoard()[line][j] == 1; j++, colSpace++){ if (j == 9) break; }
-        for (int j = col; player.getBoard()[line][j] == 0 || player.getBoard()[line][j] == 1; j--, colSpace++){ if (j == 0) break; }
+            for (int j = col; player.getBoard()[line][j] == 0 || player.getBoard()[line][j] == 1; j++, colSpace++){ if (j == 9) break; }
+            for (int j = col; player.getBoard()[line][j] == 0 || player.getBoard()[line][j] == 1; j--, colSpace++){ if (j == 0) break; }
 
-        if (linSpace < Arrays.stream(botPlayer.getBoatSizes()).min().getAsInt() || colSpace < Arrays.stream(botPlayer.getBoatSizes()).min().getAsInt())
-            return false;
+            if (linSpace < Arrays.stream(botPlayer.getBoatSizes()).min().getAsInt() || colSpace < Arrays.stream(botPlayer.getBoatSizes()).min().getAsInt())
+                return false;
 
         }
-
-        return player.getBoard()[line][col] == 0 || player.getBoard()[line][col] == 1;
+        return true;
     }
 
 }

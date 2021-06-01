@@ -1,3 +1,8 @@
+package Utils;
+
+import GameThreads.MultiGameThread;
+import Players.HumanPlayer;
+
 public class MultiplayerManager {
 
     private static MultiplayerManager manager = null;

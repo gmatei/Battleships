@@ -86,6 +86,13 @@ public class Menu extends JFrame {
 
         howToPlayBtn.setFont(buttonFont);
         howToPlayBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                manager.setHowToPlay(new HowToPlay(manager));
+                manager.setMenuVisibility(false);
+                manager.setHowToPlayVisibility(true);
+            }
+
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 console.setText("How to play: Instructions on how the game is played.");
             }
