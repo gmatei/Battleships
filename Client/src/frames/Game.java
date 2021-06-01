@@ -21,7 +21,8 @@ public class Game extends JFrame {
     private BoardHolderGame boardHolder = new BoardHolderGame(this);
     private PrintWriter out;
     private BufferedReader in;
-    private boolean gameEnded = false;
+    private boolean gameEnded = false; // is the game finished?
+    private boolean running; // is the current round still going?
 
     public Game(WindowManager manager) {
         super(GameConnection.getName() + " V.S. " + GameConnection.getOpponentName());
@@ -77,6 +78,17 @@ public class Game extends JFrame {
             }
         });
         southPanel.add(noBtn);
+
+        var returnBtn = new JButton("MENU");
+        returnBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GameConnection.disconnect();
+                running = false;
+                manager.setGameVisibility(false);
+                manager.setMenuVisibility(true);
+            }
+        });
+        southPanel.add(returnBtn);
         add(southPanel, SOUTH);
 
         pack();
@@ -106,7 +118,6 @@ public class Game extends JFrame {
         protected Object doInBackground() {
             try {
                 updateLoggers(in.readLine()); // starting game...
-                boolean running;
                 do {
                     running = true;
                     String serverMsg = in.readLine();

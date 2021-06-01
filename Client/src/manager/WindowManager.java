@@ -5,7 +5,6 @@ public class WindowManager {
 
     private Menu menu;
     private Welcome welcome;
-    private Waiting waiting;
     public ShipPlacement shipPlacement;
     public HowToPlay howToPlay;
     private Game game;
@@ -39,14 +38,6 @@ public class WindowManager {
 
     public void setHowToPlayVisibility(boolean visible) {
         howToPlay.setVisible(visible);
-    }
-
-    public void setWaiting(Waiting waiting) {
-        this.waiting = waiting;
-    }
-
-    public void setWaitingVisibility(boolean visible) {
-        waiting.setVisible(visible);
     }
 
     public void setMenu(Menu menu) {
