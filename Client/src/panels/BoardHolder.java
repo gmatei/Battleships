@@ -41,7 +41,7 @@ public class BoardHolder extends JPanel {
         setPreferredSize(new Dimension(W, H));
         setBorder(BorderFactory.createEtchedBorder());
 
-        Font font = new Font("Serif", Font.PLAIN, 20);
+        Font font = new Font("Dialog", Font.PLAIN, 20);
         graphics.setFont(font);
 
         board = new int[10][10];

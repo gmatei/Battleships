@@ -15,7 +15,6 @@ public class Menu extends JFrame {
     private JPanel panel;
     private final JLabel title = new JLabel("Battleships");
     private JLabel console;
-    private final JTextField textField = new JTextField();
     private final JButton singleplayerBtn = new JButton("Singleplayer");
     private final JButton multiplayerBtn = new JButton("Multiplayer");
     private final JButton howToPlayBtn = new JButton("How to play");
@@ -40,7 +39,7 @@ public class Menu extends JFrame {
         title.setHorizontalAlignment(JLabel.CENTER);
         panel.add(title);
 
-        // console log
+        // logger
         console = new JLabel("Welcome, " + manager.getName() + "! Select a game mode.");
         console.setFont(new Font("Serif", Font.PLAIN, 40));
         console.setHorizontalAlignment(JLabel.CENTER);
@@ -53,11 +52,6 @@ public class Menu extends JFrame {
         singleplayerBtn.setFont(buttonFont);
         singleplayerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                manager.setWaiting(new Waiting(manager));
-//                manager.setMenuVisibility(false);
-//                manager.setWaitingVisibility(true);
-//                manager.getWaiting().display();
-
                 manager.setShipPlacement(new ShipPlacement(manager, "true"));
                 manager.setMenuVisibility(false);
                 manager.setShipPlacementVisibility(true);
@@ -75,7 +69,6 @@ public class Menu extends JFrame {
         multiplayerBtn.setFont(buttonFont);
         multiplayerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                console.setText("Searching for opponent...");
                 manager.setShipPlacement(new ShipPlacement(manager, "false"));
                 manager.setMenuVisibility(false);
                 manager.setShipPlacementVisibility(true);
@@ -124,7 +117,6 @@ public class Menu extends JFrame {
         line3.add(exitBtn);
         panel.add(line3);
 
-        // main frame (contains the big jpanel)
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         add(panel, CENTER);
         pack();

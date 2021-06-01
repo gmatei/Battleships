@@ -16,10 +16,6 @@ public class WindowManager {
         welcome.setVisible(true);
     }
 
-    public Game getGame() {
-        return game;
-    }
-
     public void setGame(Game game) {
         this.game = game;
     }
@@ -40,16 +36,8 @@ public class WindowManager {
         this.waiting = waiting;
     }
 
-    public Waiting getWaiting() {
-        return this.waiting;
-    }
-
     public void setWaitingVisibility(boolean visible) {
         waiting.setVisible(visible);
-    }
-
-    public Menu getMenu() {
-        return menu;
     }
 
     public void setMenu(Menu menu) {

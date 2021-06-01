@@ -21,7 +21,7 @@ public class Game extends JFrame {
     private BoardHolderGame boardHolder = new BoardHolderGame(this);
     private PrintWriter out;
     private BufferedReader in;
-    boolean gameEnded = false;
+    private boolean gameEnded = false;
 
     public Game(WindowManager manager) {
         super(GameConnection.getName() + " V.S. " + GameConnection.getOpponentName());
@@ -86,7 +86,7 @@ public class Game extends JFrame {
             public void run() {
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ignored) {
                 }
                 new BackgroundWorker().start();
             }
@@ -102,20 +102,8 @@ public class Game extends JFrame {
             execute();
         }
 
-        /**
-         * Computes a result, or throws an exception if unable to do so.
-         *
-         * <p>
-         * Note that this method is executed only once.
-         *
-         * <p>
-         * Note: this method is executed in a background thread.
-         *
-         * @return the computed result
-         * @throws Exception if unable to compute a result
-         */
         @Override
-        protected Object doInBackground() throws Exception {
+        protected Object doInBackground() {
             try {
                 updateLoggers(in.readLine()); // starting game...
                 boolean running;

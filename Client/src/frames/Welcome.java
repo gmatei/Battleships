@@ -25,11 +25,11 @@ public class Welcome extends JFrame {
         panel.setPreferredSize(new Dimension(800, 600));
 
         var label = new JLabel("What's your name?");
-        label.setFont(new Font("Serif", Font.PLAIN, 50));
+        label.setFont(new Font("Dialog", Font.PLAIN, 50));
         label.setHorizontalAlignment(JLabel.CENTER);
 
         JTextField textField = new JTextField();
-        textField.setFont(new Font("Serif", Font.PLAIN, 40));
+        textField.setFont(new Font("Dialog", Font.PLAIN, 40));
         textField.setHorizontalAlignment(JTextField.CENTER);
         Action action = new AbstractAction() {
             @Override
