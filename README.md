@@ -5,7 +5,15 @@ Repository-ul pentru proiectul de final de semestru. Tema aleasa este jocul `Bat
 Contributia membrilor echipei se poate gasi mai jos.
 
 ## Goanta Matei, 2B5
-TODO
+* Implementare server-side si dezvoltare jucator AI pentru modul Singleplayer
+* Server-ul accepta continuu clienti pentru care porneste un `ClientThread` si ii asociaza unui joc Singleplayer sau Multiplayer, in functie de alegere
+* Clasa `MultiplayerManager` se ocupa de administrarea sesiunilor de joc intre doi clienti locali
+* In cadrul `SingleGameThread` si `MultiGameThread` serverul se ocupa de logica partidei, trimite si receptioneaza comenzi de la client, updateaza tablele de joc ale acestora, determina cand s-a terminat jocul
+* Pentru modul Singleplayer AI-ul este realizat dupa un design propriu, efectueaza mutarile dupa mai multe reguli prestabilite.
+* Pana in momentul in care loveste un camp ocupat de barca, acest spatiu este cautat verificandu-se ca acel spatiu sa nu fie adiacent unei barci deja distruse (deoarece barcile nu pot fi plasate una langa cealalta), iar in acel camp este destul spatiu ramas pentru eventuala pozitionare a unei barci (e.g.: nu poate exista o barca de 5 intr-un spatiu de 2).
+* In momentul in care este lovit un camp, se incearca distrugerea barcii prin lovirea in campuri adiacente pe aceeasi linie sau pe aceeasi coloana.
+* Creare executabile `Client.jar`, `Server.jar` (jocul poate fi pornit prin deschiderea serverului urmata de deschiderea clientului sau clientilor pentru modul Multiplayer)
+* Ecran How To Play pentru Client GUI
 
 ## Vlad Theodor, 2B5
 
