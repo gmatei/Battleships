@@ -38,6 +38,11 @@ public class ShipPlacement extends JFrame {
         var playBtn = new JButton("PLAY");
         playBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (!boardHolder.getShips().isEmpty()) {
+                    loggerHolder.getLogger().setText("You haven't placed all of your ships!");
+                    return;
+                }
+
                 manager.setShipPlacementVisibility(false);
 
                 if (!GameConnection.isActive()) {

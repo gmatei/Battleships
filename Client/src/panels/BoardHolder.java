@@ -106,6 +106,10 @@ public class BoardHolder extends JPanel {
         });
     }
 
+    public Map<String, Integer> getShips() {
+        return ships;
+    }
+
     public int[][] getBoard() {
         return board;
     }
